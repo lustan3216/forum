@@ -1,0 +1,15 @@
+<h1><%= @user.username %></h1>
+
+<% if @user == current_user %>
+  <%= link_to "Edit my profile" , edit_user_profile_path(current_user) ,:class=> "btn btn-default"%>
+<% end %>
+
+<p>NAME : <%= @profile.try(:name) %></p>
+<p>EMAIL : <%= @profile.try(:email) %></p>
+<p>GENDER : <%= @profile.try(:gender) %></p>
+<p>DESCRIPTION : <%= @profile.try(:description) %></p>
+
+
+
+<%= link_to "USERS", users_path ,:class=> "btn btn-default"%>
+<%= link_to "HOME" , root_path ,:class=> "btn btn-default"%>

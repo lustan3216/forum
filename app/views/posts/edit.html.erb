@@ -1,0 +1,13 @@
+<%=form_for @post do |f| %>
+  <div class="form-group">
+    <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+  </div>
+
+  <%= f.label :name, "TITLE" %>
+  <%= f.text_field :name , :class =>"form-control"%>
+
+  <%= f.label :description, "DESCRIPTION" %>
+  <%= f.text_area :description , :class =>"form-control"%>
+
+  <%= f.submit "ENTER" ,:class => "btn btn-primary "%>
+<%end%>

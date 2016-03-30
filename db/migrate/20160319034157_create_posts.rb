@@ -12,3 +12,4 @@ class CreatePosts < ActiveRecord::Migration
     add_index :posts , :post_id
   end
 end
+

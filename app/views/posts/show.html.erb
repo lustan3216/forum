@@ -1,0 +1,27 @@
+<%= button_to "Collection", { controller: "posts", action: "collect" }, class: "btn btn-default" %>
+
+<h1><%= @post.name %></h1>
+<p>CATEGORY:
+  <% @post.categories.each do |category| %>
+    <%= category.name %>
+  <% end %>
+</p>
+
+<p>瀏覽人次 : <%= @post.brower_people %></p>
+<p><%= @post.description %></p>
+
+<%= form_for @comment, :url => post_comments_path(@post) do |f| %>
+  <%= f.label :name, "Comment" %><br>
+  <%= f.text_field :name %>
+  <%= f.submit "Enter", :class => "btn btn-default" %>
+<% end %>
+
+
+<% @comments.each do |comment| %>
+  <p>
+    <%= comment.name %>
+    <%= link_to 'Delete', post_comment_path(@post, comment), :method => :delete, :class => "btn btn-danger" %>
+  </p>
+<% end %>
+
+<%= link_to "POST LIST", posts_path %>

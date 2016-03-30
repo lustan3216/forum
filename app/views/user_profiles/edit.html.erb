@@ -1,0 +1,22 @@
+<h2><%= simple_format @user.username %></h2>
+
+<%= form_for @profile ,:url => user_profile_path(@user) do |f| %>
+
+<%= f.label :name,"NAME"%>
+<p>NAME : <%= f.text_field :name%></p>
+
+<%= f.label :email,"EMAIL"%>
+<p>EMAIL : <%= f.email_field :email %></p>
+
+<%= f.label :birthday,"BIRDAY"%>
+<p>BIRDAY :<%= f.datetime_select :birthday %> </p>
+
+<%= f.label :gender,"GENDER"%>
+<p><%= f.radio_button :gender, "male", :checked => 'true' %><span>Male</span>
+<%= f.radio_button :gender, "female" %><span>Female</span></p>
+
+<%= f.label :description,"DESCRIPTION"%>
+<p><%= f.text_area :description %> </p>
+
+<%= f.submit 'Update', :class => "btn btn-primary" %>
+<% end %>

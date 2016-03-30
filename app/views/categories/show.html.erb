@@ -1,0 +1,15 @@
+<h1>CATEGORY</h1>
+
+<% @categorys.each do |category| %>
+  <%= link_to category.name, category_path(category) %>
+<% end %>
+<hr>
+<% if @posts.nil? %>
+ <p>尚未有資料</p>
+<% else %>
+  <% @posts.each do |post| %>
+    <p><%= link_to post.name, post_path(post) %></p>
+  <% end %>
+<% end %>
+
+<p><%= link_to 'HOME', root_path %></p>
