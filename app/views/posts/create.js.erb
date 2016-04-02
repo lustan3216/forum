@@ -1,0 +1,4 @@
+$("#comments-list").prepend("<%=j render( :partial => "posts/comment", :locals => { :comment => @comment }  ) %>");
+$("#new_comment").trigger('reset');
+
+$("#like-area").html("<%=j render( :partial => "posts/like", :locals => { :like => @like } ) %>")

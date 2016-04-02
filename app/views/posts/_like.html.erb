@@ -1,0 +1,7 @@
+<h2><%= @post.likes.count %></h2>
+ <% if like %>
+   <%= link_to "Unlike", post_like_path(@post, like), :remote => true, :method => :delete, :class => "btn btn-primary btn-lg" %>
+ <% else %>
+   <%= link_to "Like", post_likes_path(@post), :remote => true, :method => :post, :class => "btn btn-primary btn-lg" %>
+ <% end %>
+

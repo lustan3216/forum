@@ -1,0 +1,6 @@
+  <p id="comment-<%= comment.id %>" >
+    <%= comment.name %>
+    <%= link_to 'Delete', post_comment_path(@post, comment), :method => :delete, :class => "btn btn-danger" , :remote => true %>
+  </p>
+
+

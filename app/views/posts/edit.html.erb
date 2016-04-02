@@ -1,13 +1,18 @@
-<%=form_for @post do |f| %>
-  <div class="form-group">
-    <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
-  </div>
+<%= form_for @post do |f| %>
+    <div class="form-group">
+      <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+    </div>
+    <div class="form-group">
+      <%= f.radio_button :is_public, 'true', :checked => true %> <span>發布</span>
+      <%= f.radio_button :is_public, 'false' %>
+      <snan>草稿</snan>
+    </div>
 
-  <%= f.label :name, "TITLE" %>
-  <%= f.text_field :name , :class =>"form-control"%>
+    <%= f.label :name, "TITLE" %>
+    <%= f.text_field :name, :class => "form-control" %>
 
-  <%= f.label :description, "DESCRIPTION" %>
-  <%= f.text_area :description , :class =>"form-control"%>
+    <%= f.label :description, "DESCRIPTION" %>
+    <%= f.text_area :description, :class => "form-control" %>
 
-  <%= f.submit "ENTER" ,:class => "btn btn-primary "%>
-<%end%>
+    <%= f.submit "ENTER", :class => "btn btn-primary " %>
+<% end %>

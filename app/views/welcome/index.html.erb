@@ -1,14 +1,10 @@
 <h1>Welcome lulu Lourm</h1>
  <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
-<% if current_user %>
-  <%= link_to('登出', destroy_user_session_path, :method => :delete) %>
-<% else %>
-  <%= link_to "登入 Facebook", user_omniauth_authorize_path(:facebook) %>
-<% end %>
-<br>
-<%= link_to "ABOUT" , abouts_path%><br>
-<%= link_to "CATAGORIES" , categories_path%><br>
-<%= link_to "USER" , users_path%><br>
-<%= link_to "POST" , posts_path%>
 
+<br>
+<%= link_to t("about") , abouts_path%><br>
+<%= link_to t("category") , categories_path%><br>
+<%= link_to t("user") , users_path%><br>
+<%= link_to t("post") , posts_path%><br>
+<%= link_to t("admin") , admin_managements_path%>

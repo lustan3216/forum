@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
    has_many :posts
    has_many :comments
    has_one  :profile
+   has_many :likes
+   has_many :like_posts , :through=> :likes , :source => :post
+   has_many :subscriptions
+   has_many :subscriptions_posts ,:through=> :subscriptions, :source =>:post
 
    def get_profile
       if self.profile

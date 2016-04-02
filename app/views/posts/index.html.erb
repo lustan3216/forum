@@ -1,8 +1,8 @@
 <h1>ALL POSTS</h1>
 <%= link_to "NEW", new_post_path, :class => "btn btn-default" %>
 <br>
-<%= link_to "回覆時間",posts_path(:sort => "time") %>
-<%= link_to "多人回覆",posts_path(:sort => "hot") %>
+<%= link_to "回覆時間", posts_path(:sort => "time") %>
+<%= link_to "多人回覆", posts_path(:sort => "hot") %>
 
 <table class="table table-hover">
   <tr>
@@ -12,21 +12,24 @@
     <th>刪除</th>
     <th>發文時間</th>
   </tr>
-  <% @posts.each do |post|%>
-    <tr>
-      <td>
-        <%= link_to "#{post.name}", post_path(post) %>
-      </td>
-      <td><%= post.user.try(:short_name) %></td>
-      <td><%= post.comments.count %></td>
-      <td>
-        <%= link_to("DELETE", post_path(post, :page => params[:page]), :method => :delete, :class => "btn btn-default") if current_user.present? && post.user == current_user %>
-      </td>
-      <td><%= post.created_at %></td>
-    </tr>
-  <%end%>
+  <% @posts.each do |post| %>
+      <tr>
+        <% if post.is_public || post.is_public.nil? %>
+            <td>
+              <%= link_to "#{post.name}", post_path(post) %>
+            </td>
+            <td><%= post.user.try(:short_name) %></td>
+            <td><%= post.comments.count %></td>
+            <td>
+              <%= link_to("DELETE", post_path(post, :page => params[:page]),
+                          :method => :delete, :class => "btn btn-default") if (current_user.present? && post.user == current_user) || current_user.admin %>
+            </td>
+            <td><%= post.created_at %></td>
+        <% end %>
+      </tr>
+  <% end %>
 </table>
 
 <%= paginate @posts %>
 <br>
-<%= link_to "HOME", root_path%>
+

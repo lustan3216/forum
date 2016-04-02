@@ -3,6 +3,11 @@ class Post < ActiveRecord::Base
   has_many :comments # @post = Post.find(xxx), @post.comments
   has_many :category_postsships
   has_many :categories, :through => :category_postsships
+  has_many :likes
+  has_many :like_users , :through=> :likes , :source => :user
+  has_many :subscriptions
+  has_many :subscriptions_users ,:through=> :subscriptions, :source =>:user
+
 
   def countpeople
     if self.brower_people.nil?
@@ -12,5 +17,9 @@ class Post < ActiveRecord::Base
     end
     self.save
   end
+
+  # def fabu
+  #   self.where(is_public:)
+  # end
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329061259) do
+ActiveRecord::Schema.define(version: 20160402100717) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(version: 20160329061259) do
 
   add_index "comments", ["post_id"], name: "index_comments_on_post_id"
 
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -65,6 +72,13 @@ ActiveRecord::Schema.define(version: 20160329061259) do
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -81,6 +95,8 @@ ActiveRecord::Schema.define(version: 20160329061259) do
     t.string   "username"
     t.string   "fb_uid"
     t.string   "fb_token"
+    t.boolean  "admin"
+    t.string   "time_zone"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

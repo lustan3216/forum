@@ -1,9 +1,10 @@
 class PostsController < ApplicationController
-  before_action :find_post, :only => [:show, :destroy]
-  before_action :authenticate_user!, :only => [:new, :create, :destroy]
+  before_action :find_post, :only => [:show, :destroy, :edit, :update]
+  before_action :authenticate_user!, :only => [:new, :create, :destroy, :edit, :update]
 
   def index
     @posts = Post.order('id DESC').page(params[:page]).per(20)
+    # 要怎麼用find or where 找出is_public =>nil 和 false
   end
 
   def new
@@ -13,7 +14,6 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(post_params)
-
     if @post.save
       redirect_to posts_path
     else
@@ -28,11 +28,13 @@ class PostsController < ApplicationController
     @post.save
   end
 
-  # def edit
-  # end
+  def edit
+  end
 
-  # def update
-  # end
+  def update
+    @post.update(post_params)
+    redirect_to user_profile_path(@post.user_id)
+  end
 
   def destroy
     @post.destroy
@@ -50,6 +52,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:name, :description, :category_ids => [])
+    params.require(:post).permit(:name, :is_public, :description, :category_ids => [])
   end
 end

@@ -7,6 +7,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.5&appId=205815556461560";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <script>
   window.fbAsyncInit = function() {
     FB.init({
@@ -24,13 +33,20 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-         <% if current_user %>
-          <%= link_to('登出', destroy_user_session_path, :method => :delete) %> |
-          <%= link_to('修改密碼', edit_registration_path(:user)) %>
+    <div class="clear">
+      <% if current_user %>
+      <%= link_to(t("logout"), destroy_user_session_path, :method => :delete, :class=> "btn btn-default") %> |
+      <%= link_to(t("modify"), edit_registration_path(:user), :class=> "btn btn-default") %>
       <% else %>
-          <%= link_to('註冊', new_registration_path(:user)) %> |
-          <%= link_to('登入', new_session_path(:user)) %>
+      <%= link_to(t("signup"), new_registration_path(:user), :class=> "btn btn-default") %> |
+      <%= link_to(t("login"), new_session_path(:user), :class=> "btn btn-default") %>
+       <%= link_to t("facebook"), user_omniauth_authorize_path(:facebook), :class=> "btn btn-default" %>
       <% end %>
+      <%= link_to "中文版", :controller => controller_name, :action => action_name, :class=> "btn btn-default", :locale => "zh-TW" %>
+      <%= link_to "English", :controller => controller_name, :action => action_name, :class=> "btn btn-default", :locale => "en" %>
+      <%= link_to "HOME", root_path, :class=> "btn btn-default"%>
+      <%= link_to "USERS", users_path, :class => "btn btn-default" %>
+    </div>
 
 <%= yield %>
 

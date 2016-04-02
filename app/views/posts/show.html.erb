@@ -1,27 +1,39 @@
-<%= button_to "Collection", { controller: "posts", action: "collect" }, class: "btn btn-default" %>
+<% subscription = @post.subscriptions.find_by_user_id(current_user) %>
+
+<% if subscription %>
+    <%= link_to "取消訂閱", post_subscription_path(@post, subscription), :method => :delete, :class => "btn btn-primary btn-sm" %>
+<% else %>
+    <%= link_to "訂閱", post_subscriptions_path(@post), :method => :post, :class => "btn btn-primary btn-sm" %>
+<% end %>
 
 <h1><%= @post.name %></h1>
 <p>CATEGORY:
   <% @post.categories.each do |category| %>
-    <%= category.name %>
+      <%= category.name %>
   <% end %>
 </p>
+<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+
+<% like = @post.likes.find_by_user_id(current_user) %>
+<div id="like-area">
+  <%= render :partial => "like", :locals => {:like => like} %>
+</div>
 
 <p>瀏覽人次 : <%= @post.brower_people %></p>
 <p><%= @post.description %></p>
 
-<%= form_for @comment, :url => post_comments_path(@post) do |f| %>
-  <%= f.label :name, "Comment" %><br>
-  <%= f.text_field :name %>
-  <%= f.submit "Enter", :class => "btn btn-default" %>
+<%= form_for @comment, :url => post_comments_path(@post), :remote => true do |f| %>
+    <%= f.label :name, "Comment" %><br>
+    <%= f.text_field :name %>
+    <%= f.submit "Enter", :class => "btn btn-default" %>
 <% end %>
 
-
-<% @comments.each do |comment| %>
-  <p>
-    <%= comment.name %>
-    <%= link_to 'Delete', post_comment_path(@post, comment), :method => :delete, :class => "btn btn-danger" %>
-  </p>
-<% end %>
-
+<div id="comments-list">
+  <% @comments.each do |comment| %>
+      <p id="comment-<%= comment.id %>">
+        <%= comment.name %>
+        <%= link_to 'Delete', post_comment_path(@post, comment), :method => :delete, :class => "btn btn-danger", :remote => true %>
+      </p>
+  <% end %>
+</div>
 <%= link_to "POST LIST", posts_path %>

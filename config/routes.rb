@@ -8,12 +8,16 @@ Rails.application.routes.draw do
     member do
       post :collect
     end
+    resources :subscriptions
+    resources :likes
     resources :comments ,:controller => "post_comments"
   end
   resources :users ,:only => [:index] do
     resource :profile ,:controller => "user_profiles"
   end
-
+  namespace :admin do
+    resources :managements
+  end
 #
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
