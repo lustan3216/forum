@@ -1,0 +1,5 @@
+<% if subscription %>
+    <%= link_to "取消訂閱", post_subscription_path(@post, subscription),remote: true, :method => :delete, :class => "btn btn-primary btn-sm" %>
+<% else %>
+    <%= link_to "訂閱", post_subscriptions_path(@post),remote: true, :method => :post, :class => "btn btn-primary btn-sm" %>
+<% end %>

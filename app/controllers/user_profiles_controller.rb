@@ -12,6 +12,7 @@ class UserProfilesController < ApplicationController
     @comments = @user.comments.all
     @profile = @user.get_profile
     @subscription = @user.subscriptions
+    @userlikesss  = Post.where(:id => @user.likes.pluck(:post_id) )
   end
 
   def edit

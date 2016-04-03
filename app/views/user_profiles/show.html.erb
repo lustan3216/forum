@@ -46,6 +46,11 @@
         </tr>
     <% end %>
   </table>
+
+  <h2>讚過的文章：</h2>
+  <% @userlikesss.each do |x| %>
+  <%= link_to x.name, post_path(x.id) %> <br>
+  <% end %>
 </div>
 
 

@@ -1,8 +1,10 @@
 <h1>ALL POSTS</h1>
 <%= link_to "NEW", new_post_path, :class => "btn btn-default" %>
 <br>
-<%= link_to "回覆時間", posts_path(:sort => "time") %>
-<%= link_to "多人回覆", posts_path(:sort => "hot") %>
+<%= link_to "最後回覆時間", posts_path(:sort => "replytime") %>
+<%= link_to "多人回覆", posts_path(:sort => "replys") %>
+<%= link_to "最多瀏覽數", posts_path(:sort => "browers") %>
+<%= link_to "最新文章", posts_path(:sort => "createtime") %>
 
 <table class="table table-hover">
   <tr>

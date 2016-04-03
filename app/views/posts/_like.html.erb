@@ -1,7 +1,13 @@
 <h2><%= @post.likes.count %></h2>
- <% if like %>
-   <%= link_to "Unlike", post_like_path(@post, like), :remote => true, :method => :delete, :class => "btn btn-primary btn-lg" %>
- <% else %>
-   <%= link_to "Like", post_likes_path(@post), :remote => true, :method => :post, :class => "btn btn-primary btn-lg" %>
- <% end %>
+<% if like %>
+    <%= link_to "Unlike", post_like_path(@post, like), :remote => true, :method => :delete, :class => "btn btn-primary btn-lg" %>
+<% else %>
+    <%= link_to "Like", post_likes_path(@post), :remote => true, :method => :post, :class => "btn btn-primary btn-lg" %>
+<% end %>
 
+<% ids = @post.likes.pluck(:user_id) %>
+<% name = User.where(:id => ids) %>
+<span>我是按過讚的人 : </span>
+<% name.each do |x| %>
+    <%= button_tag x.username, :class => "btn btn-default" %>
+<% end %>

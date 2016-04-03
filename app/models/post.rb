@@ -17,9 +17,4 @@ class Post < ActiveRecord::Base
     end
     self.save
   end
-
-  # def fabu
-  #   self.where(is_public:)
-  # end
-
 end

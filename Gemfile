@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 gem "rails-i18n"
+gem "paperclip"
 gem 'omniauth-facebook'
 gem 'bootstrap-sass' ,' ~>3.3.6'
 gem "kaminari"

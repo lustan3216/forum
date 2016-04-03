@@ -3,7 +3,21 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, :only => [:new, :create, :destroy, :edit, :update]
 
   def index
-    @posts = Post.order('id DESC').page(params[:page]).per(20)
+    #Post.joins(:comments)
+    #Post.select('posts.all, max(comments.created_at) as last_comment')
+    #Post.group('posts.id')
+    #Post.order('last_comment desc')
+    @posts = Post.all
+    if params[:sort] == "replytime"
+      @posts = Post.order('last_comment desc, topics.created_at desc')
+    elsif params[:sort] == "replys"
+      @posts = Post.order('brower_people DESC, created_at DESC')
+    elsif params[:sort] == "browers"
+      @posts = Post.order('brower_people DESC, created_at DESC')
+    else params[:sort] == "createtime"
+      @posts = Post.order('id DESC')
+    end
+    @posts = @posts.page(params[:page]).per(20)
     # 要怎麼用find or where 找出is_public =>nil 和 false
   end
 
@@ -34,6 +48,10 @@ class PostsController < ApplicationController
   def update
     @post.update(post_params)
     redirect_to user_profile_path(@post.user_id)
+    if params[:destroy_logo]
+      @event.logo = nil
+      @event.save
+    end
   end
 
   def destroy
@@ -52,6 +70,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:name, :is_public, :description, :category_ids => [])
+    params.require(:post).permit(:name,:logo, :is_public, :description, :category_ids => [])
   end
 end

@@ -1,10 +1,8 @@
 <% subscription = @post.subscriptions.find_by_user_id(current_user) %>
 
-<% if subscription %>
-    <%= link_to "取消訂閱", post_subscription_path(@post, subscription), :method => :delete, :class => "btn btn-primary btn-sm" %>
-<% else %>
-    <%= link_to "訂閱", post_subscriptions_path(@post), :method => :post, :class => "btn btn-primary btn-sm" %>
-<% end %>
+<div id="subscription">
+  <%= render :partial => "subscription", :locals => {:subscription => subscription} %>
+</div>
 
 <h1><%= @post.name %></h1>
 <p>CATEGORY:
@@ -18,6 +16,7 @@
 <div id="like-area">
   <%= render :partial => "like", :locals => {:like => like} %>
 </div>
+<!--要怎麼, :url => user_profile_path(@post.user) 讓每個名字倒回頁面 ｉｄ要怎麼改-->
 
 <p>瀏覽人次 : <%= @post.brower_people %></p>
 <p><%= @post.description %></p>
