@@ -2,7 +2,11 @@ class PostCommentsController < ApplicationController
   before_action :find_post
 
   def create
-    @comment = @post.comments.create(comment_params)
+    @comment = @post.comments.new(comment_params)
+    @comment.user = current_user
+    @comment.save
+    # @comment.update(:user_id => current_user)
+    # @comment.save
     respond_to do |format|
       format.html
       format.js { render "posts/create" }
@@ -25,6 +29,6 @@ class PostCommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:name)
+    params.require(:comment).permit(:name,:user_id )
   end
 end

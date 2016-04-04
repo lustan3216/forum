@@ -1,4 +1,8 @@
-<br>
-<% @users.each do |user| %>
-  <%= link_to user.username ,user_profile_path(user)%><br>
-<% end %>
+<div class="container text-center">
+  <h1>USER</h1>
+  <div class="list-group col-md-6 col-md-push-3">
+    <% @users.each do |user| %>
+        <%= link_to user.username, user_profile_path(user), :class => "list-group-item" %>
+    <% end %>
+  </div>
+</div>

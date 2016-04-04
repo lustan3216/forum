@@ -1,56 +1,60 @@
-<h1><%= @user.username %></h1>
+<div class="container">
+  <div class="text-center">
+    <h1><%= @user.username %></h1>
 
-<% if @user == current_user %>
-    <%= link_to "Edit my profile", edit_user_profile_path(current_user), :class => "btn btn-default" %>
-    <%= link_to "NEW", new_post_path, :class => "btn btn-default" %>
-<% elsif current_user.admin %>
-    <%= link_to "Edit ANY profile", edit_user_profile_path(params[:user_id]), :class => "btn btn-default" %>
-<% end %>
-
-<p>NAME : <%= @profile.try(:name) %></p>
-<p>EMAIL : <%= @profile.try(:email) %></p>
-<p>GENDER : <%= @profile.try(:gender) %></p>
-<p>DESCRIPTION : <%= @profile.try(:description) %></p>
-
-<ul>
-  <h3>我的最愛愛啦</h3>
-  <% @subscription.each do |sub| %>
-      <li><%= link_to Post.find(sub.post_id).name, post_path(sub.post_id) %></li>
+  <% if @user == current_user %>
+      <%= link_to(t("modify"), edit_registration_path(:user), :class => "btn btn-default") %>
+      <%= link_to "Edit my profile", edit_user_profile_path(current_user), :class => "btn btn-default" %>
+      <%= link_to "NEW", new_post_path, :class => "btn btn-default" %>
+  <% elsif current_user.admin %>
+      <%= link_to "Edit ANY profile", edit_user_profile_path(params[:user_id]), :class => "btn btn-default" %>
   <% end %>
-</ul>
+  </div>
 
-<div class="col-sm-8 table">
+  <p>NAME : <%= @profile.try(:name) %></p>
+  <p>EMAIL : <%= @profile.try(:email) %></p>
+  <p>GENDER : <%= @profile.try(:gender) %></p>
+  <p>DESCRIPTION : <%= @profile.try(:description) %></p>
+
   <table class="table">
-    <br>
-    <h1>發過的文章</h1>
-    <tr>
-      <th>文章</th>
-      <th>修改</th>
-      <th>狀態</th>
-    </tr>
-    <% @user.posts.each do |f| %>
-        <tr>
-          <td>
-            <%= link_to f.name, post_path(f) %>
-          </td>
-          <td>
-            <%= link_to "EDIT", edit_post_path(f), :class => "btn btn-default" %>
-          </td>
-          <td>
-            <% if f.is_public || f.is_public == nil %>
-                <span>發布</span>
-            <% else %>
-                <span>草稿</span>
-            <% end %>
-          </td>
-        </tr>
+    <h3>我的最愛愛啦</h3>
+    <% @subscription.each do |sub| %>
+        <tr><td><%= link_to Post.find(sub.post_id).name, post_path(sub.post_id) %></td></tr>
     <% end %>
   </table>
 
-  <h2>讚過的文章：</h2>
-  <% @userlikesss.each do |x| %>
-  <%= link_to x.name, post_path(x.id) %> <br>
-  <% end %>
-</div>
 
+    <table class="table">
+      <h3>發過的文章</h3>
+      <tr>
+        <th>文章</th>
+        <th>修改</th>
+        <th>狀態</th>
+      </tr>
+      <% @user.posts.each do |f| %>
+          <tr>
+            <td>
+              <%= link_to f.name, post_path(f) %>
+            </td>
+            <td>
+              <%= link_to "EDIT", edit_post_path(f), :class => "btn btn-default" %>
+            </td>
+            <td>
+              <% if f.is_public || f.is_public == nil %>
+                  <span>發布</span>
+              <% else %>
+                  <span>草稿</span>
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <h3>讚過的文章：</h3>
+  <table class="table">
+    <% @userlikesss.each do |x| %>
+       <tr><td><%= link_to x.name, post_path(x.id) %></td></tr>
+  <% end %>
+    </table>
+</div>
 

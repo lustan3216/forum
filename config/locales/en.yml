@@ -21,3 +21,15 @@
 
 en:
   hello: "Hello world"
+  about: "ABOUT"
+  category: "CATEGORY"
+  user: "USER"
+  post: "POST"
+  signup: "SIGNUP"
+  modify: "MODIFY"
+  login: "LOGIN"
+  logout: "LOGOUT"
+  facebook: "FB LOGIN"
+  admin: "ADMIN"
+  users: "USERS"
+  home: "HOME"

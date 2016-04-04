@@ -1,36 +1,39 @@
-<h1>Management BACKEND</h1>
-<div class="row">
-  <div class="col-sm-3">
-    <h1>CATEGORY</h1>
-    <% @categories.each do |c| %>
-        <%= c.name %>
-        <%= c.posts.count %>
-        <%= link_to("DELETE", admin_management_path(c), :method => :delete, :class => "btn btn-default") if c.posts.empty? %>
-        <br>
-    <% end %>
-
-    <%= form_for @category, :url => admin_managements_path, :method => :post do |f| %>
-        <%= f.label :name, "NEWCATEGORY" %><br>
-        <%= f.text_field :name %>
-        <%= f.submit "Enter", :class => "btn btn-default" %>
-    <% end %>
+<div class="container">
+  <div class="text-center">
+  <h1>BACKEND</h1>
   </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <h1>CATEGORY</h1>
+      <% @categories.each do |c| %>
+          <%= c.name %>
+          <%= c.posts.count %>
+          <%= link_to("DELETE", admin_management_path(c), :method => :delete, :class => "btn btn-default") if c.posts.empty? %>
+          <br>
+      <% end %>
 
-  <div class="col-sm-9">
-    <h1>CONTROLLER USER</h1>
-    <p><%= flash[:notice] %></p>
-    <% @users.each do |user| %>
-        <%= link_to user.username, user_profile_path(user) %>
-        <% if user.admin != true %>
-            <%= link_to "SetAdmin", admin_management_path(user, :user_id => user.id), :method => :patch, :class => "btn btn-default" %>
-            <br>
-        <% else%>
-            <%= link_to "SetAdminBACK", admin_management_path(user), :method => :patch, :class => "btn btn-default" %>
-            <br>
-        <% end %>
-    <% end %>
+      <%= form_for @category, :url => admin_managements_path, :method => :post do |f| %>
+          <%= f.label :name, "NEWCATEGORY" %><br>
+          <%= f.text_field :name %>
+          <%= f.submit "Enter", :class => "btn btn-default" %>
+      <% end %>
+    </div>
+
+    <div class="col-sm-9">
+      <h1>CONTROLLER USER</h1>
+      <p><%= flash[:notice] %></p>
+      <% @users.each do |user| %>
+          <%= link_to user.username, user_profile_path(user) %>
+          <% if user.admin != true %>
+              <%= link_to "SetAdmin", admin_management_path(user, :user_id => user.id), :method => :patch, :class => "btn btn-default" %>
+              <br>
+          <% else %>
+              <%= link_to "SetAdminBACK", admin_management_path(user, :user_id => user.id), :method => :patch, :class => "btn btn-default" %>
+              <br>
+          <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
-<div>
-  <%= link_to "HOME", root_path %>
+  <div>
+  </div>
 </div>

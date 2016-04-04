@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
    has_many :like_posts , :through=> :likes , :source => :post
    has_many :subscriptions
    has_many :subscriptions_posts ,:through=> :subscriptions, :source =>:post
+   has_many :friends
 
    def get_profile
       if self.profile

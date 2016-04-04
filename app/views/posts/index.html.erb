@@ -1,37 +1,38 @@
-<h1>ALL POSTS</h1>
-<%= link_to "NEW", new_post_path, :class => "btn btn-default" %>
-<br>
-<%= link_to "最後回覆時間", posts_path(:sort => "replytime") %>
-<%= link_to "多人回覆", posts_path(:sort => "replys") %>
-<%= link_to "最多瀏覽數", posts_path(:sort => "browers") %>
-<%= link_to "最新文章", posts_path(:sort => "createtime") %>
-
-<table class="table table-hover">
-  <tr>
-    <th>文章名</th>
-    <th>發文人</th>
-    <th>回覆數</th>
-    <th>刪除</th>
-    <th>發文時間</th>
-  </tr>
-  <% @posts.each do |post| %>
-      <tr>
-        <% if post.is_public || post.is_public.nil? %>
-            <td>
-              <%= link_to "#{post.name}", post_path(post) %>
-            </td>
-            <td><%= post.user.try(:short_name) %></td>
-            <td><%= post.comments.count %></td>
-            <td>
-              <%= link_to("DELETE", post_path(post, :page => params[:page]),
-                          :method => :delete, :class => "btn btn-default") if (current_user.present? && post.user == current_user) || current_user.admin %>
-            </td>
-            <td><%= post.created_at %></td>
-        <% end %>
-      </tr>
-  <% end %>
-</table>
-
-<%= paginate @posts %>
-<br>
-
+<div class="container">
+  <div class="text-center mbottom30">
+  <h1>ALL POSTS</h1>
+  <%= link_to "NEW", new_post_path, :class => "btn btn-default" %>
+  <%= link_to "最後回覆時間", posts_path(:sort => "replytime"), :class => "btn btn-default"  %>
+  <%= link_to "多人回覆", posts_path(:sort => "replys") , :class => "btn btn-default" %>
+  <%= link_to "最多瀏覽數", posts_path(:sort => "browers") , :class => "btn btn-default" %>
+  <%= link_to "最新文章", posts_path(:sort => "createtime"), :class => "btn btn-default"  %>
+  </div>
+  <table class="table table-hover">
+    <tr>
+      <th>文章名</th>
+      <th>發文人</th>
+      <th>回覆數</th>
+      <th>刪除</th>
+      <th>發文時間</th>
+    </tr>
+    <% @posts.each do |post| %>
+        <tr>
+          <% if post.is_public || post.is_public.nil? %>
+              <td>
+                <%= link_to "#{post.name}", post_path(post) %>
+              </td>
+              <td><%= post.user.try(:short_name) %></td>
+              <td><%= post.comments.count %></td>
+              <td>
+                <%= link_to("DELETE", post_path(post, :page => params[:page]),
+                            :method => :delete, :class => "btn btn-default") if (current_user.present? && post.user == current_user) || current_user.admin %>
+              </td>
+              <td><%= post.created_at %></td>
+          <% end %>
+        </tr>
+    <% end %>
+  </table>
+<div class="text-center">
+  <%= paginate @posts, :theme => 'twitter-bootstrap-3',:pagination_class => "pagination-sm" %>
+</div>
+</div>

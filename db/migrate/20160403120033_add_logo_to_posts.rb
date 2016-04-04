@@ -1,5 +1,5 @@
 class AddLogoToPosts < ActiveRecord::Migration
   def change
-    add_attachment :events, :logo
+    add_attachment :posts, :logo
   end
 end

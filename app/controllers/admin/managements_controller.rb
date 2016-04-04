@@ -1,6 +1,6 @@
 class Admin::ManagementsController < ApplicationController
 
-  before_action :authenticate_user!, :admin
+  before_action :authenticate_user!, :admins
 
   def index
     @categories = Category.all
@@ -23,10 +23,12 @@ class Admin::ManagementsController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if !(@user.admin)
-      @user.admin = true
-    else
+    if @user.admin
       @user.admin = false
+      @user.update(user_params)
+    else
+      @user.admin = true
+      @user.update(user_params)
     end
     redirect_to admin_managements_path
     #要怎麼用user_params存進去
@@ -42,7 +44,7 @@ class Admin::ManagementsController < ApplicationController
     params.require(:user).premit(:admin)
   end
 
-  def admin
+  def admins
     if !current_user.admin
       redirect_to root_path
     end

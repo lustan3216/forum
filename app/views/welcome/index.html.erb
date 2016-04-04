@@ -1,10 +1,33 @@
-<h1>Welcome lulu Lourm</h1>
- <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-
-<br>
-<%= link_to t("about") , abouts_path%><br>
-<%= link_to t("category") , categories_path%><br>
-<%= link_to t("user") , users_path%><br>
-<%= link_to t("post") , posts_path%><br>
-<%= link_to t("admin") , admin_managements_path%>
+<div class="header">
+  <div class="text-center">
+    <%= link_to "LORUM", admin_managements_path, :class => "" %>
+  </div>
+</div>
+<div class="container">
+  <div class="row welcome">
+    <div class="col-xs-6 col-md-3">
+      <div class="smallpic">
+        <%= link_to t("about"), abouts_path, :class => "thumb" %>
+        <%= image_tag("1") %>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="smallpic">
+        <%= link_to t("category"), categories_path, :class => "thumb" %>
+        <%= image_tag("5") %>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="smallpic">
+        <%= link_to t("user"), users_path, :class => "thumb" %>
+        <%= image_tag("3") %>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="smallpic">
+        <%= link_to t("post"), posts_path, :class => "thumb" %>
+        <%= image_tag("4") %>
+      </div>
+    </div>
+  </div>
+</div>

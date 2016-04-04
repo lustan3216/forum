@@ -1,38 +1,52 @@
-<% subscription = @post.subscriptions.find_by_user_id(current_user) %>
+<div class="container">
 
-<div id="subscription">
-  <%= render :partial => "subscription", :locals => {:subscription => subscription} %>
-</div>
+  <% subscription = @post.subscriptions.find_by_user_id(current_user) %>
 
-<h1><%= @post.name %></h1>
-<p>CATEGORY:
-  <% @post.categories.each do |category| %>
-      <%= category.name %>
+  <div class="text-center mbottom30">
+    <h1><%= @post.name %></h1>
+    <% @post.categories.each do |category| %>
+        <span class="label label-default">  <%= category.name %></span>
+    <% end %>
+  </div>
+  <div class="row mbottom30">
+    <div class="col-md-1">
+      <div id="subscription">
+        <%= render :partial => "subscription", :locals => {:subscription => subscription} %>
+      </div>
+
+    </div>
+    <div class="col-md-3">
+      <% like = @post.likes.find_by_user_id(current_user) %>
+      <div id="like-area">
+        <%= render :partial => "like", :locals => {:like => like} %>
+      </div>
+    </div>
+    <div class="col-md-3 col-md-push-4">
+      <span class="pull-right label label-success">瀏覽人次 : <%= @post.brower_people %></span>
+      <span class="pull-right label label-success">點讚人次 :<%= @post.likes.count %></span>
+    </div>
+  </div>
+  <!--要怎麼, :url => user_profile_path(@post.user) 讓每個名字倒回頁面 ｉｄ要怎麼改-->
+  <% if @post.logo.exists? %>
+      <%= image_tag(@post.logo(:medium)) %>
   <% end %>
-</p>
-<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-
-<% like = @post.likes.find_by_user_id(current_user) %>
-<div id="like-area">
-  <%= render :partial => "like", :locals => {:like => like} %>
-</div>
-<!--要怎麼, :url => user_profile_path(@post.user) 讓每個名字倒回頁面 ｉｄ要怎麼改-->
-
-<p>瀏覽人次 : <%= @post.brower_people %></p>
-<p><%= @post.description %></p>
-
-<%= form_for @comment, :url => post_comments_path(@post), :remote => true do |f| %>
-    <%= f.label :name, "Comment" %><br>
-    <%= f.text_field :name %>
-    <%= f.submit "Enter", :class => "btn btn-default" %>
-<% end %>
-
-<div id="comments-list">
-  <% @comments.each do |comment| %>
-      <p id="comment-<%= comment.id %>">
-        <%= comment.name %>
-        <%= link_to 'Delete', post_comment_path(@post, comment), :method => :delete, :class => "btn btn-danger", :remote => true %>
-      </p>
+  <div class="mupdown50">
+    <p><%= @post.description %></p>
+  </div>
+  <%= form_for @comment, :url => post_comments_path(@post), :remote => true do |f| %>
+      <%= f.label :name, "Comment" %><br>
+      <%= f.text_field :name %>
+      <%= f.submit "Enter", :class => "btn btn-default" %>
   <% end %>
+
+  <div id="comments-list">
+    <% @comments.each do |comment| %>
+        <p id="comment-<%= comment.id %>">
+          <%= comment.name %>
+          <%= link_to 'Delete', post_comment_path(@post, comment), :method => :delete, :class => "btn btn-danger", :remote => true %>
+        </p>
+    <% end %>
+  </div>
+
+  <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 </div>
-<%= link_to "POST LIST", posts_path %>

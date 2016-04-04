@@ -1,22 +1,29 @@
-<%= form_for @post do |f| %>
-    <div class="form-group">
-      <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
-    </div>
+<div class="container">
+  <h1>POST NEW</h1>
+  <%= form_for @post do |f| %>
+      <%= collection_select(:post, :category_ids, Category.all, :id, :name, {:prompt => true}, {:class => "js-example-basic-single width50", :multiple => true}) %>
+      <div class="form-group">
+        <%= f.label :logo, "LOGO檔案" %>
+        <%= f.file_field :logo %>
+        <%= check_box_tag "destroy_logo", "1" %> 刪除檔案
+      </div>
+      <div class="form-group">
+        <%= f.radio_button :is_public, 'true', :checked => true %> <span>發布</span>
+        <%= f.radio_button :is_public, 'false' %>
+        <snan>草稿</snan>
+      </div>
 
-    <div class="form-group">
-      <%= f.radio_button :is_public, 'true' , :checked => true%> <span>發布</span>
-      <%= f.radio_button :is_public, 'false' %> <snan>草稿</snan>
-    </div>
+      <div class="form-group width50">
+        <%= f.label :name, "TITLE" %>
+        <%= f.text_field :name, :class => "form-control" %>
+      </div>
+      <div class="form-group width50 height200">
+        <%= f.label :description, "DESCRIPTION" %>
+        <%= f.text_area :description, :class => "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "ENTER", :class => "btn btn-primary " %>
+      </div>
+  <% end %>
 
-    <div class="form-group">
-      <%= f.label :name, "TITLE" %>
-      <%= f.text_field :name, :class => "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :description, "DESCRIPTION" %>
-      <%= f.text_area :description, :class => "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.submit "ENTER", :class => "btn btn-primary " %>
-    </div>
-<% end %>
+</div>
